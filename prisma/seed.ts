@@ -1,13 +1,13 @@
 import "dotenv/config"
 import { PrismaClient } from "../src/generated/client"
 import { PrismaPg } from "@prisma/adapter-pg"
+import pg from "pg"
 import path from "path"
 import * as XLSX from "xlsx"
 import bcrypt from "bcryptjs"
 
 const connectionString = process.env.DATABASE_URL!
-const { Pool } = require("pg")
-const pool = new Pool({ connectionString })
+const pool = new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
 const adapter = new PrismaPg(pool)
 
 const prisma = new PrismaClient({ adapter })
