@@ -4,5 +4,4 @@ node_modules/
 *.db-journal
 .env
 .env.local
-src/generated/
 start-dev.vbs
