@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-card: #16161f;
+  --bg-card-hover: #1c1c2a;
+  --border-subtle: #1e1e2e;
+  --border-medium: #2a2a3e;
+  --text-primary: #f0f0f5;
+  --text-secondary: #9090a5;
+  --text-muted: #606078;
+  --accent: #10b981;
+  --accent-glow: rgba(16, 185, 129, 0.12);
+  --accent-glow-strong: rgba(16, 185, 129, 0.25);
+  --red-accent: #ef4444;
+  --amber-accent: #f59e0b;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.15), 0 0 20px rgba(16, 185, 129, 0.06);
+}
+
+.glow-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(16, 185, 129, 0.04);
+}
+
+.glow-card-hover:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.cinematic-gradient {
+  background: radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.04) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+              linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+.input-premium {
+  background-color: rgba(22, 22, 31, 0.8);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.input-premium:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 15px var(--accent-glow);
+  outline: none;
+}
+
+.table-premium thead tr {
+  background-color: rgba(22, 22, 31, 0.6);
+  border-bottom: 1px solid var(--border-medium);
+}
+
+.table-premium tbody tr {
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.15s ease;
+}
+
+.table-premium tbody tr:hover {
+  background-color: rgba(16, 185, 129, 0.04);
+}
+
+.table-premium tbody tr:nth-child(even) {
+  background-color: rgba(22, 22, 31, 0.3);
+}
+
+.table-premium tbody tr:nth-child(even):hover {
+  background-color: rgba(16, 185, 129, 0.06);
+}

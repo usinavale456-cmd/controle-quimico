@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Safra {
+  id        Int      @id @default(autoincrement())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  weeks     Week[]
+  createdAt DateTime @default(now())
+}
+
+model Week {
+  id          Int             @id @default(autoincrement())
+  safraId     Int
+  weekNumber  Int
+  startDate   DateTime
+  endDate     DateTime
+  safra       Safra           @relation(fields: [safraId], references: [id])
+  records     WeeklyRecord[]
+  production  ProductionRecord?
+  createdAt   DateTime        @default(now())
+
+  @@unique([safraId, weekNumber])
+}
+
+model Sector {
+  id       Int       @id @default(autoincrement())
+  name     String
+  slug     String    @unique
+  order    Int       @default(0)
+  products Product[]
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id        Int            @id @default(autoincrement())
+  name      String
+  unit      String
+  sectorId  Int
+  sector    Sector         @relation(fields: [sectorId], references: [id])
+  unitPrice Float?
+  target    Float?
+  order     Int            @default(0)
+  records   WeeklyRecord[]
+  createdAt DateTime       @default(now())
+}
+
+model WeeklyRecord {
+  id                Int      @id @default(autoincrement())
+  weekId            Int
+  productId         Int
+  weeklyConsumption Float?
+  weeklyCost        Float?
+  userId            String?
+  week              Week     @relation(fields: [weekId], references: [id])
+  product           Product  @relation(fields: [productId], references: [id])
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([weekId, productId])
+}
+
+model ProductionRecord {
+  id              Int      @id @default(autoincrement())
+  weekId          Int      @unique
+  week            Week     @relation(fields: [weekId], references: [id])
+  acucarVhp       Float?
+  acucarCristal   Float?
+  etanolAnidro    Float?
+  etanolHidratado Float?
+  canaEtanol      Float?
+  canaAcucar      Float?
+  userId          String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
